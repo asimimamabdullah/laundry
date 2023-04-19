@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
-const HomeCard = () => {
+const HomeCard = ({ navigation, item, category }) => {
 	return (
-		<View
+		<TouchableOpacity
+			onPress={() => navigation.navigate("Field", item)}
 			style={{
 				flexDirection: "row",
 				backgroundColor: "#fff",
@@ -16,11 +17,17 @@ const HomeCard = () => {
 					flex: 0.6,
 					justifyContent: "space-between",
 				}}>
-				<Text style={{ fontSize: 15 }}>Cool Laundry</Text>
-				<Text style={{ color: "#bbbbbb", fontSize: 13 }}>Category</Text>
+				<Text style={{ fontSize: 15 }}>{item.name}</Text>
+				<Text style={{ color: "#bbbbbb", fontSize: 13 }}>
+					{category?.name}
+				</Text>
 			</View>
-			<View style={{ backgroundColor: "rgb(94,174,199)", flex: 0.4 }} />
-		</View>
+			{item.image ? (
+				<Image source={item.image} style={{ width: 120, height: "100%" }} />
+			) : (
+				<View style={{ backgroundColor: "rgb(94,174,199)", flex: 0.4 }} />
+			)}
+		</TouchableOpacity>
 	);
 };
 

@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
-const TrackCard = () => {
+const TrackCard = ({ navigation }) => {
 	return (
-		<View style={{ flexDirection: "row" }}>
+		<TouchableOpacity
+			style={{ flexDirection: "row" }}
+			onPress={() => navigation.navigate("TrackItem")}>
 			<View style={{ gap: 10, padding: 10 }}>
 				<Text>APR 27</Text>
 				<Text>FRI</Text>
@@ -36,7 +38,7 @@ const TrackCard = () => {
 					</TouchableOpacity>
 				</View>
 			</View>
-		</View>
+		</TouchableOpacity>
 	);
 };
 

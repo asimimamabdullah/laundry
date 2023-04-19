@@ -3,8 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import BottomTabs from "./app/navigation/BottomTabs";
+import Field from "./app/Screens/Field";
 import Login from "./app/Screens/Login";
 import SignUp from "./app/Screens/SignUp";
+import TrackItem from "./app/Screens/TrackItem";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,26 @@ export default function App() {
 						name="BottomTabs"
 						component={BottomTabs}
 						options={{ headerShown: false }}
+					/>
+
+					<Stack.Screen
+						name="TrackItem"
+						component={TrackItem}
+						options={{
+							headerShown: true,
+							headerTitleAlign: "center",
+							headerBackButtonMenuEnabled: true,
+						}}
+					/>
+
+					<Stack.Screen
+						name="Field"
+						component={Field}
+						options={{
+							headerShown: true,
+							headerBackButtonMenuEnabled: true,
+							headerTitleAlign: "center",
+						}}
 					/>
 				</Stack.Navigator>
 			</NavigationContainer>

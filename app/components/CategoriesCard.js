@@ -1,10 +1,10 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { DryClean_128 } from "../../assets/icons";
 
-const CategoriesCard = () => {
+const CategoriesCard = ({ item, navigation }) => {
 	return (
-		<View
+		<TouchableOpacity
 			style={{
 				borderWidth: 1,
 				borderColor: "#bbb",
@@ -16,9 +16,9 @@ const CategoriesCard = () => {
 				// minWidth: 90,
 				width: 115,
 			}}>
-			<Image source={DryClean_128} style={{ width: 64, height: 64 }} />
-			<Text style={{ textAlign: "center" }}>Dry Clean</Text>
-		</View>
+			<Image source={item?.image} style={{ width: 64, height: 64 }} />
+			<Text style={{ textAlign: "center" }}>{item?.name}</Text>
+		</TouchableOpacity>
 	);
 };
 
