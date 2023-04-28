@@ -13,6 +13,7 @@ import {
 	settings_64,
 	track_64,
 } from "../../assets/icons";
+import { StatusBar } from "expo-status-bar";
 
 const Tabs = createBottomTabNavigator();
 
@@ -31,6 +32,10 @@ const BottomTabs = () => {
 					},
 					headerShown: true,
 					headerShadowVisible: false,
+					headerTintColor: "#fff",
+					headerStyle: {
+						backgroundColor: "rgb(129,212,250)",
+					},
 				}}>
 				<Tabs.Screen
 					name="Home"
@@ -114,6 +119,7 @@ const BottomTabs = () => {
 				/>
 			</Tabs.Navigator>
 			{/* <Text>BottomTabs</Text> */}
+			<StatusBar style="light" backgroundColor="rgb(94,174,199)" />
 		</View>
 	);
 };

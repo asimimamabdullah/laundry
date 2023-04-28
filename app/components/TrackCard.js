@@ -1,14 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
-const TrackCard = ({ navigation }) => {
+const TrackCard = ({ navigation, item }) => {
 	return (
 		<TouchableOpacity
 			style={{ flexDirection: "row" }}
 			onPress={() => navigation.navigate("TrackItem")}>
 			<View style={{ gap: 10, padding: 10 }}>
-				<Text>APR 27</Text>
-				<Text>FRI</Text>
+				<Text>
+					APR 27{new Date(item?.createdAt).toDateString().substring(4, 8)}
+				</Text>
+				<Text>
+					FRI{new Date(item?.createdAt).toDateString().substring(0, 4)}
+				</Text>
 			</View>
 			<View
 				style={{
@@ -22,7 +26,7 @@ const TrackCard = ({ navigation }) => {
 						letterSpacing: 0.1,
 						fontSize: 15,
 					}}>
-					T-Shirt Washing
+					{item?.product}
 				</Text>
 				<Text style={{ color: "#cccccc" }}>Order Number # 3211</Text>
 				<View>

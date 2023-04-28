@@ -6,12 +6,45 @@ import {
 	View,
 } from "react-native";
 import React, { useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { useLoginMutation } from "../redux/app/auth/login";
+import { setCredentials } from "../redux/app/auth/authSlice";
 
-const Login = () => {
+const Login = ({ navigation }) => {
 	const [loginDetails, setLoginDetails] = useState({
-		username: "",
+		email: "",
 		password: "",
 	});
+	const [errMsg, setErrMsg] = useState(null);
+	const dispatch = useDispatch();
+
+	const [login] = useLoginMutation();
+
+	const handleSubmit = async () => {
+		try {
+			const userData = await login({
+				...loginDetails,
+			}).unwrap();
+			await AsyncStorage.setItem("token", userData?.accessToken);
+
+			dispatch(
+				setCredentials({
+					...userData,
+				}),
+			);
+			navigation.navigate("Home");
+		} catch (err) {
+			// if (!err?.response) setErrMsg("No Server Response");
+			// else if (err.originalStatus?.status === 400)
+			// 	setErrMsg("Missing Username or password");
+			// else if (err.originalStatus?.status === 401) setErrMsg("Unauthorized");
+			// else setErrMsg("Login Failed");
+			console.log("login erro: ", err);
+			setErrMsg(err?.data?.error);
+			// errRef.current.focus();
+		}
+	};
 	return (
 		<View
 			style={{
@@ -33,7 +66,7 @@ const Login = () => {
 				{/* upper  */}
 				<View style={{ gap: 20 }}>
 					<TextInput
-						value={loginDetails?.username}
+						value={loginDetails?.email}
 						placeholder="Username"
 						placeholderTextColor="#bbb"
 						style={{
@@ -43,7 +76,7 @@ const Login = () => {
 							borderRadius: 5,
 						}}
 						onChangeText={(t) =>
-							setLoginDetails((prev) => ({ ...prev, username: t }))
+							setLoginDetails((prev) => ({ ...prev, email: t }))
 						}
 					/>
 					<TextInput
@@ -77,6 +110,7 @@ const Login = () => {
 					</View>
 
 					<TouchableOpacity
+						onPress={handleSubmit}
 						style={{
 							padding: 20,
 							backgroundColor: "rgb(129,212,250)",
@@ -92,6 +126,7 @@ const Login = () => {
 						</Text>
 					</TouchableOpacity>
 				</View>
+
 				{/* bottom */}
 				<View style={{ gap: 20 }}>
 					{/* lines draw  */}
@@ -121,6 +156,7 @@ const Login = () => {
 					</View>
 					<View>
 						<TouchableOpacity
+							onPress={() => navigation.navigate("SignUp")}
 							style={{
 								backgroundColor: "rgb(129,212,250)",
 								padding: 20,

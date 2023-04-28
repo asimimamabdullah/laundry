@@ -4,7 +4,9 @@ import React from "react";
 const Cart = () => {
 	return (
 		<View>
-			<Text>Cart</Text>
+			<Text style={{ color: "#aaa", textAlign: "center", marginTop: 40 }}>
+				No Items in cart
+			</Text>
 		</View>
 	);
 };

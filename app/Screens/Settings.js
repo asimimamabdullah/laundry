@@ -1,7 +1,12 @@
 import { StyleSheet, Switch, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut, selectCurrentToken } from "../redux/app/auth/authSlice";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Location from "expo-location";
+import { setCurrentLocation } from "../redux/app/locationSlice";
 
-const Settings = () => {
+const Settings = ({ navigation }) => {
 	const [buttonData, setButtonData] = useState({
 		permission: false,
 		locationServices: false,
@@ -9,8 +14,52 @@ const Settings = () => {
 		ads: false,
 	});
 
+	const dispatch = useDispatch();
+
+	const token = useSelector(selectCurrentToken);
+
+	useEffect(() => {
+		if (!token) navigation.navigate("Login");
+	}, [token]);
+
+	useEffect(() => {
+		if (buttonData.locationServices) {
+			(async () => {
+				let { status } = await Location.requestForegroundPermissionsAsync();
+				if (status !== "granted") {
+					setErrorMsg("Permission to access location was denied");
+					return;
+				}
+
+				let location = await Location.getCurrentPositionAsync({});
+				let regionFound = await Location.reverseGeocodeAsync({
+					latitude: location.coords.latitude,
+					longitude: location.coords.longitude,
+				});
+
+				dispatch(
+					setCurrentLocation({
+						coords: location?.coords,
+						region: regionFound[0],
+					}),
+				);
+			})();
+		}
+	}, [buttonData.locationServices]);
+
 	const toggleSwitch = (prop, val) =>
 		setButtonData((prev) => ({ ...prev, [prop]: val }));
+
+	const handleLogout = async () => {
+		if (token) {
+			try {
+				dispatch(logOut());
+				await AsyncStorage.removeItem("token");
+			} catch (error) {
+				console.log("error: ", error);
+			}
+		} else navigation.navigate("Login");
+	};
 
 	return (
 		<View
@@ -156,6 +205,7 @@ const Settings = () => {
 
 			<View>
 				<TouchableOpacity
+					onPress={handleLogout}
 					style={{
 						backgroundColor: "rgb(94,174,199)",
 						paddingHorizontal: 20,

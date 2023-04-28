@@ -8,15 +8,19 @@ import {
 	WashAndFold_128,
 } from "../../assets/icons";
 import CategoriesCard from "../components/CategoriesCard";
+import { useSelector } from "react-redux";
+import { selectCategoryData } from "../redux/app/categories/categoriesSlice";
 
 const Categories = ({ navigation }) => {
-	const [categories, setCategories] = useState([
-		{ id: 1, name: "Dry Clean", image: DryClean_128 },
-		{ id: 2, name: "Wash & Fold", image: WashAndFold_128 },
-		{ id: 3, name: "Steam Press", image: steamPress_128 },
-		{ id: 4, name: "Starching", image: starching_128 },
-		{ id: 5, name: "Laundry", image: laundry_128 },
-	]);
+	// const [categories, setCategories] = useState([
+	// 	{ id: 1, name: "Dry Clean", image: DryClean_128 },
+	// 	{ id: 2, name: "Wash & Fold", image: WashAndFold_128 },
+	// 	{ id: 3, name: "Steam Press", image: steamPress_128 },
+	// 	{ id: 4, name: "Starching", image: starching_128 },
+	// 	{ id: 5, name: "Laundry", image: laundry_128 },
+	// ]);
+
+	const categories = useSelector(selectCategoryData);
 	return (
 		<View style={{ flex: 1, padding: 20, backgroundColor: "#fff" }}>
 			<ScrollView
@@ -24,7 +28,6 @@ const Categories = ({ navigation }) => {
 					flexDirection: "row",
 					flexWrap: "wrap",
 					gap: 10,
-					// justifyContent: "space-between",
 				}}>
 				{categories?.map((item, index) => (
 					<CategoriesCard

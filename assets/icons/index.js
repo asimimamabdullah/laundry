@@ -8,6 +8,7 @@ import categories_64 from "./categories-64.png";
 import track_64 from "./track-64.png";
 import cart_64 from "./cart-64.png";
 import settings_64 from "./settings-64.png";
+import congrats_128 from "./balloon-128.png";
 
 export {
 	DryClean_128,
@@ -20,4 +21,5 @@ export {
 	track_64,
 	cart_64,
 	settings_64,
+	congrats_128,
 };
