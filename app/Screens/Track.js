@@ -24,7 +24,7 @@ const Track = ({ navigation }) => {
 			};
 
 			const res = await axios.get(
-				`http://10.0.2.2:3000/api/order/${user._id}`,
+				`https://backend-laundry-production.up.railway.app/api/order/${user._id}`,
 				auth,
 			);
 
