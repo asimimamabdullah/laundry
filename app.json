@@ -1,30 +1,46 @@
 {
-  "expo": {
-    "name": "laundry",
-    "slug": "laundry",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+	"expo": {
+		"name": "laundry",
+		"slug": "laundry",
+		"version": "1.0.1",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"userInterfaceStyle": "light",
+		"plugins": [["expo-location"]],
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true
+		},
+		"android": {
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#ffffff"
+			},
+			"versionCode": 2,
+			"permissions": [
+				"ACCESS_COARSE_LOCATION",
+				"ACCESS_BACKGROUND_LOCATION",
+				"ACCESS_FINE_LOCATION"
+			],
+			"config": {
+				"googleMaps": {
+					"apiKey": "AIzaSyChD16rzBA00a4GklQ3al9oeNfIgdI2Zik"
+				}
+			},
+			"package": "com.app.laundry_app"
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "6e81a556-2445-4012-bbc2-e28b993e0d6d"
+			}
+		}
+	}
 }
